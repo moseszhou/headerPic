@@ -1,0 +1,10 @@
+{
+  "entry": "kfcTaro1",
+  "bundle": "index.bundle",
+  "id": "KFC_Taro_1",
+  "commit": "da262e2e391df5785af08914e56ca7c706b9e0db",
+  "author": "shmz0002",
+  "date": "Fri Mar 21 15:20:15 2025 +0800",
+  "message": "移除折叠判断",
+  "type": "taro"
+}
