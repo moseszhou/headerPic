@@ -57,7 +57,7 @@ const App = () => {
     }
 
     try {
-      await avatarEditorRef.current?.saveToGallery(finalImage);
+      await avatarEditorRef.current.saveToGallery(finalImage);
       Alert.alert("成功", "图片已保存到相册");
     } catch (error) {
       Alert.alert("错误", "保存图片失败: " + error.message);
@@ -91,8 +91,8 @@ const App = () => {
         <Text style={styles.title}>头像编辑器</Text>
 
         <View style={styles.editorContainer}>
-          {!finalImage ? (
-            <AvatarEditor
+          <View style={styles.editorWrapper}>
+            <AvatarEditor 
               ref={avatarEditorRef}
               defaultAvatarUri={defaultAvatarUri}
               frameUri={frameUri}
@@ -102,8 +102,14 @@ const App = () => {
               onImageCaptured={onImageCaptured}
               onImageSaved={onImageSaved}
             />
-          ) : (
-            <Image source={{ uri: finalImage }} style={styles.finalImage} />
+          </View>
+          {finalImage && (
+            <View style={styles.finalImageWrapper}>
+              <Image 
+                source={{ uri: finalImage }} 
+                style={styles.finalImage} 
+              />
+            </View>
           )}
         </View>
 
@@ -180,17 +186,25 @@ const styles = StyleSheet.create({
     color: "#333",
   },
   editorContainer: {
-    width: width - 40,
-    height: width - 40,
-    alignSelf: "center",
-    backgroundColor: "#fff",
+    alignSelf: 'center',
+    backgroundColor: '#fff',
     borderRadius: 10,
-    overflow: "hidden",
+    overflow: 'hidden',
     elevation: 5,
-    shadowColor: "#000",
+    shadowColor: '#000',
     shadowOffset: { width: 0, height: 2 },
     shadowOpacity: 0.25,
     shadowRadius: 3.84,
+    position: 'relative',
+    width: width - 40,
+    height: ((width - 40) * 487) / 571,
+  },
+  editorWrapper: {
+    position: 'absolute',
+    top: 0,
+    left: 0,
+    right: 0,
+    bottom: 0,
   },
   buttonContainer: {
     flexDirection: "row",
@@ -250,10 +264,20 @@ const styles = StyleSheet.create({
     fontWeight: "bold",
     textAlign: "center",
   },
+  finalImageWrapper: {
+    position: 'absolute',
+    top: 0,
+    left: 0,
+    right: 0,
+    bottom: 0,
+    backgroundColor: '#fff',
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
   finalImage: {
-    width: "100%",
-    height: "100%",
-    resizeMode: "contain",
+    width: '100%',
+    height: '100%',
+    resizeMode: 'contain',
   },
   instructionContainer: {
     marginTop: 20,
@@ -268,8 +292,8 @@ const styles = StyleSheet.create({
   },
   instructionDetail: {
     fontSize: 14,
-    color: "#666",
-    textAlign: "center",
+    color: '#666',
+    textAlign: 'center',
     lineHeight: 20,
   },
 });

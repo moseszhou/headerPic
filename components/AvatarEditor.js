@@ -202,9 +202,9 @@ const AvatarEditor = forwardRef(({
       }
 
       // 使用原版CameraRoll保存图片
-      await CameraRoll.save(imageUri);
-      onImageSaved?.(imageUri);
-      
+      const result = await CameraRoll.save(imageUri);
+      onImageSaved?.(result);
+      return result;
     } catch (error) {
       console.error('保存失败:', error);
       throw error;
