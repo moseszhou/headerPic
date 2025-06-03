@@ -10,7 +10,7 @@ import {
   SafeAreaView,
 } from "react-native";
 import { GestureHandlerRootView } from "react-native-gesture-handler";
-import AvatarEditor from "./components/AvatarEditor";
+import AvatarEditor from "react-native-avatar-editor";
 
 const { width } = Dimensions.get("window");
 const picWidth = width - 40;

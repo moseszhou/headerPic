@@ -1,21 +1,46 @@
 {
-  "name": "headerPic",
-  "version": "0.0.1",
-  "private": true,
+  "name": "react-native-avatar-editor",
+  "version": "1.0.0",
+  "description": "一个功能强大的React Native头像编辑组件，支持拖拽、缩放、旋转和相框叠加",
+  "main": "index.js",
+  "types": "index.d.ts",
   "scripts": {
-    "android": "react-native run-android",
-    "ios": "react-native run-ios",
     "start": "react-native start",
     "test": "jest",
-    "lint": "eslint ."
+    "lint": "eslint .",
+    "prepublishOnly": "npm run lint",
+    "example:android": "cd example && npx react-native run-android",
+    "example:ios": "cd example && npx react-native run-ios",
+    "example:start": "cd example && npx react-native start"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/moseszhou/react-native-avatar-editor.git"
+  },
+  "keywords": [
+    "react-native",
+    "avatar",
+    "editor",
+    "image",
+    "photo",
+    "gesture",
+    "crop",
+    "frame"
+  ],
+  "author": "moses zhou",
+  "license": "MIT",
+  "peerDependencies": {
+    "react": ">=16.8.0",
+    "react-native": ">=0.60.0",
+    "react-native-gesture-handler": ">=2.0.0",
+    "react-native-view-shot": ">=3.0.0"
   },
   "dependencies": {
-    "@react-native-community/cameraroll": "4.1.2",
-    "fbjs": "^3.0.5",
+    "@react-native-community/cameraroll": "^4.1.2",
     "react": "18.2.0",
     "react-native": "0.68.5",
     "react-native-gesture-handler": "2.9.0",
-    "react-native-syan-image-picker": "0.5.3",
+    "react-native-syan-image-picker": "^0.5.3",
     "react-native-view-shot": "3.5.0"
   },
   "devDependencies": {
@@ -31,5 +56,12 @@
   },
   "engines": {
     "node": ">=16"
-  }
+  },
+  "files": [
+    "index.js",
+    "index.d.ts",
+    "src/",
+    "README.md",
+    "LICENSE"
+  ]
 }
