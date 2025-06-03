@@ -25,6 +25,15 @@
 - `frameUri`: 相框图片资源
 - `width`: 编辑器宽度（可选，默认为屏幕宽度-40）
 - `height`: 编辑器高度（可选，默认为屏幕宽度-40）
+- `clipStyle`: 头像裁剪容器的样式（可选，默认为空对象）。用于定义头像显示区域的样式，支持设置宽度、高度、圆角等属性，例如：
+  ```javascript
+  clipStyle={{
+    width: 300,
+    height: 300,
+    borderRadius: 150,
+    overflow: "hidden"
+  }}
+  ```
 - `onAvatarSelected`: 头像选择回调函数
 - `onImageCaptured`: 图片合成回调函数
 - `onImageSaved`: 图片保存回调函数

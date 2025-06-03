@@ -13,9 +13,11 @@ import { GestureHandlerRootView } from "react-native-gesture-handler";
 import AvatarEditor from "./components/AvatarEditor";
 
 const { width } = Dimensions.get("window");
+const picWidth = width - 40;
+
 // 使用本地图片资源
 const defaultAvatarUri = require("./src/assets/header.png");
-const frameUri = require("./src/assets/kfc.png");
+const frameUri = require("./src/assets/4-wow.png");
 
 const App = () => {
   const [finalImage, setFinalImage] = useState(null);
@@ -85,6 +87,7 @@ const App = () => {
     console.log("图片已保存:", imageUri);
   };
 
+
   return (
     <GestureHandlerRootView style={styles.container}>
       <SafeAreaView style={styles.container}>
@@ -92,12 +95,13 @@ const App = () => {
 
         <View style={styles.editorContainer}>
           <View style={styles.editorWrapper}>
-            <AvatarEditor 
+            <AvatarEditor
               ref={avatarEditorRef}
               defaultAvatarUri={defaultAvatarUri}
               frameUri={frameUri}
-              width={width - 40}
-              height={((width - 40) * 487) / 571}
+              clipStyle={{ width: picWidth * 5 / 6, height: picWidth * 5 / 6, borderRadius: picWidth * 5 / 12, overflow: "hidden" }}
+              width={picWidth}
+              height={picWidth}
               onAvatarSelected={onAvatarSelected}
               onImageCaptured={onImageCaptured}
               onImageSaved={onImageSaved}
@@ -105,9 +109,9 @@ const App = () => {
           </View>
           {finalImage && (
             <View style={styles.finalImageWrapper}>
-              <Image 
-                source={{ uri: finalImage }} 
-                style={styles.finalImage} 
+              <Image
+                source={{ uri: finalImage }}
+                style={styles.finalImage}
               />
             </View>
           )}
@@ -196,8 +200,8 @@ const styles = StyleSheet.create({
     shadowOpacity: 0.25,
     shadowRadius: 3.84,
     position: 'relative',
-    width: width - 40,
-    height: ((width - 40) * 487) / 571,
+    width: picWidth,
+    height: picWidth,
   },
   editorWrapper: {
     position: 'absolute',

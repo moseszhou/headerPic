@@ -21,18 +21,19 @@ import CameraRoll from '@react-native-community/cameraroll';
 
 const { width: screenWidth } = Dimensions.get('window');
 
-const AvatarEditor = forwardRef(({ 
-  defaultAvatarUri, 
-  frameUri, 
+const AvatarEditor = forwardRef(({
+  defaultAvatarUri,
+  frameUri,
   width = screenWidth - 40,
   height = screenWidth - 40,
+  clipStyle = {},
   onAvatarSelected,
   onImageCaptured,
   onImageSaved
 }, ref) => {
   // 状态管理
   const [avatarUri, setAvatarUri] = useState(defaultAvatarUri);
-  
+
   // 使用React Native原生Animated值
   const scale = useRef(new Animated.Value(1)).current;
   const rotation = useRef(new Animated.Value(0)).current;
@@ -97,7 +98,7 @@ const AvatarEditor = forwardRef(({
         console.log('ImagePicker错误:', error);
         return;
       }
-      
+
       if (photos && photos.length > 0) {
         const selectedPhoto = photos[0];
         const newAvatarUri = { uri: selectedPhoto.uri };
@@ -131,7 +132,7 @@ const AvatarEditor = forwardRef(({
         console.log('从相册选择图片错误:', error);
         return;
       }
-      
+
       if (photos && photos.length > 0) {
         const selectedPhoto = photos[0];
         const newAvatarUri = { uri: selectedPhoto.uri };
@@ -167,7 +168,7 @@ const AvatarEditor = forwardRef(({
         console.log('拍摄头像错误:', error);
         return;
       }
-      
+
       if (photos && photos.length > 0) {
         const selectedPhoto = photos[0];
         const newAvatarUri = { uri: selectedPhoto.uri };
@@ -264,11 +265,11 @@ const AvatarEditor = forwardRef(({
 
   // 平移手势处理
   const onPanGestureEvent = Animated.event(
-    [{ 
-      nativeEvent: { 
+    [{
+      nativeEvent: {
         translationX: translateX,
-        translationY: translateY 
-      } 
+        translationY: translateY
+      }
     }],
     { useNativeDriver: true }
   );
@@ -291,13 +292,13 @@ const AvatarEditor = forwardRef(({
   const imageTransform = [
     { translateX: Animated.add(translateX, new Animated.Value(baseTranslateX)) },
     { translateY: Animated.add(translateY, new Animated.Value(baseTranslateY)) },
-    { 
+    {
       scale: Animated.multiply(
-        scale, 
+        scale,
         new Animated.Value(baseScale)
-      ) 
+      )
     },
-    { 
+    {
       rotate: Animated.add(
         rotation,
         new Animated.Value(baseRotation)
@@ -356,15 +357,17 @@ const AvatarEditor = forwardRef(({
                     {/* 使用两层视图叠加的方式 */}
                     <View style={styles.layerContainer}>
                       {/* 底层：头像图片，可以缩放、旋转和移动 */}
-                      <Animated.Image
-                        source={typeof avatarUri === 'object' && avatarUri.uri ? avatarUri : avatarUri}
-                        style={[
-                          styles.avatarImage,
-                          avatarImageStyle,
-                          { transform: imageTransform }
-                        ]}
-                        resizeMode="contain"
-                      />
+                      <View style={clipStyle}>
+                        <Animated.Image
+                          source={typeof avatarUri === 'object' && avatarUri.uri ? avatarUri : avatarUri}
+                          style={[
+                            styles.avatarImage,
+                            avatarImageStyle,
+                            { transform: imageTransform }
+                          ]}
+                          resizeMode="contain"
+                        />
+                      </View>
                       {/* 上层：相框图片，位置固定，头像只通过相框透明部分显示 */}
                       <Image
                         source={frameUri}
